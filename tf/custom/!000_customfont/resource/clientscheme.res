@@ -6,9 +6,16 @@
 //  (Windows) to regenerate this file for another font - no manual
 //  editing needed. Marker: TF2_CUSTOM_FONT_OVERRIDE
 //
-//  Font family : DejaVu Sans
-//  Font file   : resource/customfont.ttf
+//  Font mapping (see --list-fonts in the scripts):
+//  tf2         -> DejaVu Sans (custom)
+//  build       -> DejaVu Sans (custom)
+//  secondary   -> DejaVu Sans (custom)
+//  professor   -> DejaVu Sans (custom)
+//  body        -> DejaVu Sans (custom)
+//  numbers     -> DejaVu Sans (custom)
+//  hud         -> DejaVu Sans (custom)
 //
+//  Every glyph-set carries // CUSTOMFONT:ORIG=<original family>.
 //  Everything except the font names is inherited from
 //  "clientscheme_base.res" (vanilla scheme or a custom HUD scheme).
 // ==========================================================================
@@ -17,6 +24,8 @@
 
 Scheme
 {
+	// CUSTOMFONT:CUSTOM-FILE-BEGIN
+	// Registered only when a role uses a custom font file.
 	CustomFontFiles
 	{
 		"1000"
@@ -60,859 +69,861 @@ Scheme
 			// CUSTOMFONT:RANGE-END
 		}
 	}
+	// CUSTOMFONT:CUSTOM-FILE-END
 
 	Fonts
 	{
-		// Every glyph-set gets the same replacement family.  Only the name
-		// is written, so tall/weight/antialias/... still come from the base.
+		// Each glyph-set is replaced according to its original family
+		// (CUSTOMFONT:ORIG).  Only the name is written, so tall/weight/
+		// antialias/... still come from the base.
 
 		"Default"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
-			"6"	{ "name" "DejaVu Sans" }
-			"7"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"6"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"7"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Arial
 		}
 
 		"DefaultUnderline"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Arial
 		}
 
 		"DefaultSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
-			"6"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"6"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Arial
 		}
 
 		"DefaultVerySmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"DefaultLarge"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
-			"6"	{ "name" "DejaVu Sans" }
-			"7"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"6"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"7"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Arial
 		}
 
 		"CenterPrintText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Trebuchet MS
 		}
 
 		"PlayerPanelPlayerName"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"HudHintText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"HudFontGiant"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"HudFontGiantBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontBiggerBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontBig"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"HudFontMediumBig"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"HudFontMediumBigBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"HudFontMediumSecondary"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"HudFontMediumBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontMediumSmallBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontMediumSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"HudFontMediumSmallSecondary"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"HudFontSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"HudFontSmallishBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontSmallBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontSmallBoldShadow"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"HudFontSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"HudFontSmallestShadow"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"HudFontSmallestBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"PerformanceModeSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"StorePromotionsTitle"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"FontCartPrice"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"FontStorePrice"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"FontStoreOriginalPrice"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"FontStorePriceSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"FontStorePromotion"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"TextTooltipFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"GameUIButtonText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"HudClassHealth"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"SpectatorKeyHints"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ClockSubText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ClockSubTextSuddenDeath"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ClockSubTextTiny"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"HudSelectionText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"DebugOverlay"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
 		}
 
 		"TFTypeDeath"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=tfd
 		}
 
 		"BetaFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Courier New
 		}
 
 		"HudNumbers"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Team Fortress
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"CloseCaption"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
 		}
 
 		"CloseCaption_Italic"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
 		}
 
 		"CloseCaption_Bold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
 		}
 
 		"CloseCaption_BoldItalic"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
 		}
 
 		"CloseCaption_Small"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Tahoma
 		}
 
 		"MenuMainTitle"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"MenuClassBuckets"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"MenuKeys"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"GoalText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ChalkboardTitle"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Professor
 		}
 
 		"ChalkboardTitleBig"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Professor
 		}
 
 		"ChalkboardTitleMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Professor
 		}
 
 		"ChalkboardText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Professor
 		}
 
 		"ScoreboardSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ScoreboardVerySmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ScoreboardSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ScoreboardMediumSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"ScoreboardMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ScoreboardTeamName"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ScoreboardTeamCountNew"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ScoreboardTeamNameNew"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ScoreboardTeamNameLarge"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ScoreboardTeamScoreNew"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"ScoreboardTeamScore"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"MatchSummaryTeamScores"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"MatchSummaryStatsAndMedals"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"MatchSummaryWinner"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"CompMatchStartTeamNames"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ControlPointTimer"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ControlPointTimerSmaller"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"Link"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"TargetID"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ChatFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ChatMiniFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"MenuSmallestFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Arial Black
 		}
 
 		"MenuSmallFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"CapPlayerFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"CapPlayerFontSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"TFFontSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"TFFontMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"InstructionalText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"MatchmakingDialogTitle"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"MatchmakingDialogSessionOptionsTitle"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"MatchmakingDialogMenuLarge"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"MatchmakingDialogMenuBrowserHostname"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Trebuchet MS
 		}
 
 		"MatchmakingDialogMenuBrowserDetails"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Trebuchet MS
 		}
 
 		"MatchmakingDialogMenuMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"MatchmakingDialogMenuMediumSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"MatchmakingDialogMenuSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"MatchmakingDialogMenuSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"RankingDialogHeaders"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"TeamMenuBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"TeamMenu"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"IntroMenuCaption"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"AchievementNotification"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Trebuchet MS
 		}
 
 		"ImportToolSmallestBold"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ImportToolSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"SpectatorVerySmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"DefaultVerySmallFallBack"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ItemFontNameSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ItemFontNameSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ItemFontNameLarge"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ItemFontNameLarger"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ItemFontAttribSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ItemFontAttribSmallv2"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ItemFontAttribSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ItemFontAttribLarge"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ItemFontAttribLarger"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"AchievementTracker_Name"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"AchievementTracker_NameGlow"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"AchievementTracker_Desc"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"QuestObjectiveTracker_Desc"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"QuestObjectiveTracker_DescGlow"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"QuestObjectiveTracker_DescBlur"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ItemTrackerScore_InGame"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"QuestFlavorText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestObjectiveText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestLargeText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestStickyText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Professor
 		}
 
 		"QuestInstructionText_Merasmus"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"QuestFlavorText_Merasmus"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"QuestObjectiveText_Merasmus"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"QuestMediumText_Merasmus"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"QuestLargeText_Merasmus"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"AdFont_ItemName"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"AdFont_AdText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"AdFont_PurchaseButton"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"TradeUp_Text"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"TradeUp_Quote"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Trebuchet MS
 		}
 
 		"ReplayVerySmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ReplayBrowserSmallest"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"ReplaySmaller"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
-			"6"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"6"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Arial
 		}
 
 		"ReplayMediumSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ReplayMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ReplayMediumBig"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2
 		}
 
 		"ReplayBrowserTab"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ReplayLarger"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"EconFontSmall"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"EconFontMedium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"ControllerHintText"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"MMenuPlayListDesc"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Secondary
 		}
 
 		"XPSource"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"XPSource_Glow"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"MapVotesPercentage"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=TF2 Build
 		}
 
 		"QuestMap_Small_Blur"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestMap_Small"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestMap_Medium"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestMap_Large"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 
 		"QuestMap_Huge"
 		{
-			"1"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=OCR A Extended
 		}
 		// CUSTOMFONT:HUD-FONTS
 	}

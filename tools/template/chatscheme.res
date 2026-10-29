@@ -6,9 +6,10 @@
 //  (Windows) to regenerate this file for another font - no manual
 //  editing needed. Marker: TF2_CUSTOM_FONT_OVERRIDE
 //
-//  Font family : __CUSTOM_FONT_NAME__
-//  Font file   : __CUSTOM_FONT_FILE__
+//  Font mapping (see --list-fonts in the scripts):
+// __CUSTOM_FONT_SUMMARY__
 //
+//  Every glyph-set carries // CUSTOMFONT:ORIG=<original family>.
 //  Everything except the font names is inherited from
 //  "chatscheme_base.res" (vanilla scheme or a custom HUD scheme).
 // ==========================================================================
@@ -17,6 +18,8 @@
 
 Scheme
 {
+	// CUSTOMFONT:CUSTOM-FILE-BEGIN
+	// Registered only when a role uses a custom font file.
 	CustomFontFiles
 	{
 		"1000"
@@ -60,28 +63,30 @@ Scheme
 			// CUSTOMFONT:RANGE-END
 		}
 	}
+	// CUSTOMFONT:CUSTOM-FILE-END
 
 	Fonts
 	{
-		// Every glyph-set gets the same replacement family.  Only the name
-		// is written, so tall/weight/antialias/... still come from the base.
+		// Each glyph-set is replaced according to its original family
+		// (CUSTOMFONT:ORIG).  Only the name is written, so tall/weight/
+		// antialias/... still come from the base.
 
 		"Default"
 		{
-			"1"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"2"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"3"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"4"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"5"	{ "name" "__CUSTOM_FONT_NAME__" }
+			"1"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ChatFont"
 		{
-			"1"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"2"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"3"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"4"	{ "name" "__CUSTOM_FONT_NAME__" }
-			"5"	{ "name" "__CUSTOM_FONT_NAME__" }
+			"1"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "__CUSTOM_FONT_NAME__" }	// CUSTOMFONT:ORIG=Verdana
 		}
 		// CUSTOMFONT:HUD-FONTS
 	}

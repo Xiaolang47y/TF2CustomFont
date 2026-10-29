@@ -1,10 +1,14 @@
 @echo off
 setlocal
 rem ===========================================================================
-rem  set-font.cmd - replace the font used by the TF2 "!000_customfont" mod
+rem  set-font.cmd - replace the fonts used by the TF2 "!000_customfont" mod
 rem
 rem  Usage:  set-font.cmd <font.ttf> [options]
-rem  Run "set-font.cmd -Help" for the full option list.
+rem          set-font.cmd -Font "tf2=2.ttf,build=1.ttf,secondary=1.ttf,professor=2.ttf"
+rem  Put several -Font entries in one quoted argument (PowerShell does not
+rem  allow the same parameter name twice). Run "set-font.cmd -Help" for the
+rem  full option list (roles, -Keep, -ListFonts, -Hud, -NoRange, -Target,
+rem  -Restore).
 rem ===========================================================================
 
 set "PS_SCRIPT=%~dp0set-font.ps1"

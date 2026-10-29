@@ -3,14 +3,20 @@
 Rebuild tools/template/{clientscheme,chatscheme}.res from the pristine
 scheme files in tools/base/.
 
-The generated files contain two placeholders that the set-font scripts
-replace at run time:
+The generated files contain placeholders that the set-font scripts replace
+at run time:
 
-    __CUSTOM_FONT_NAME__   font family name understood by the engine
-    __CUSTOM_FONT_FILE__   path of the font inside the mod (resource/...)
+    __CUSTOM_FONT_SUMMARY__  the per-role font mapping shown in the header
+    __CUSTOM_FONT_NAME__     font family name understood by the engine
+    __CUSTOM_FONT_FILE__     path of the font inside the mod (resource/...)
+
+Every glyph-set carries a trailing "// CUSTOMFONT:ORIG=<family>" comment.
+The scripts use it to assign a different font to each TF2 role (the four
+tf2*.ttf families, HUD numbers and every other text family) instead of
+forcing one font everywhere.
 
 Only the "name" of every font glyph-set is overridden; sizes, weights,
-ranges, colors, borders and every other key are inherited from the base
+ranges, colors, borders and every other key is inherited from the base
 scheme through the #base directive, so future game updates only require
 refreshing tools/base/*.res and re-running this script.
 
@@ -182,9 +188,10 @@ def build_scheme(scheme_name: str, base_file: str, title: str) -> str:
     out.append("//  (Windows) to regenerate this file for another font - no manual")
     out.append("//  editing needed. Marker: %s" % MARKER)
     out.append("//")
-    out.append("//  Font family : __CUSTOM_FONT_NAME__")
-    out.append("//  Font file   : __CUSTOM_FONT_FILE__")
+    out.append("//  Font mapping (see --list-fonts in the scripts):")
+    out.append("// __CUSTOM_FONT_SUMMARY__")
     out.append("//")
+    out.append("//  Every glyph-set carries // CUSTOMFONT:ORIG=<original family>.")
     out.append("//  Everything except the font names is inherited from")
     out.append('//  "%s" (vanilla scheme or a custom HUD scheme).' % (scheme_name + "_base.res"))
     out.append("// " + "=" * 74)
@@ -193,6 +200,8 @@ def build_scheme(scheme_name: str, base_file: str, title: str) -> str:
     out.append("")
     out.append("Scheme")
     out.append("{")
+    out.append("\t// CUSTOMFONT:CUSTOM-FILE-BEGIN")
+    out.append("\t// Registered only when a role uses a custom font file.")
     out.append("\tCustomFontFiles")
     out.append("\t{")
     out.append('\t\t"%s"' % CUSTOM_FONT_ID)
@@ -210,11 +219,13 @@ def build_scheme(scheme_name: str, base_file: str, title: str) -> str:
     out.append("\t\t\t// CUSTOMFONT:RANGE-END")
     out.append("\t\t}")
     out.append("\t}")
+    out.append("\t// CUSTOMFONT:CUSTOM-FILE-END")
     out.append("")
     out.append("\tFonts")
     out.append("\t{")
-    out.append("\t\t// Every glyph-set gets the same replacement family.  Only the name")
-    out.append("\t\t// is written, so tall/weight/antialias/... still come from the base.")
+    out.append("\t\t// Each glyph-set is replaced according to its original family")
+    out.append("\t\t// (CUSTOMFONT:ORIG).  Only the name is written, so tall/weight/")
+    out.append("\t\t// antialias/... still come from the base.")
     count = 0
     for font in fonts.children:
         if not font.is_block:
@@ -231,7 +242,14 @@ def build_scheme(scheme_name: str, base_file: str, title: str) -> str:
         out.append('\t\t"%s"' % font.name)
         out.append("\t\t{")
         for block in blocks:
-            out.append('\t\t\t"%s"\t{ "name" "__CUSTOM_FONT_NAME__" }' % block.name)
+            original = next(
+                (c.value for c in block.children if not c.is_block and c.name.lower() == "name"),
+                "",
+            )
+            out.append(
+                '\t\t\t"%s"\t{ "name" "__CUSTOM_FONT_NAME__" }\t// CUSTOMFONT:ORIG=%s'
+                % (block.name, original)
+            )
         out.append("\t\t}")
         count += 1
     out.append("\t\t// CUSTOMFONT:HUD-FONTS")

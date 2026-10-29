@@ -1,8 +1,9 @@
 # TF2 自定义字体 Mod（!000_customfont）
 
 一个客户端侧的《军团要塞 2》（Team Fortress 2）Mod，用来把游戏内显示的字体替换成你喜欢的任意
-TrueType / OpenType 字体。支持 Windows 与 Linux，附带两个脚本：自动读取字体文件里的**字体家族名**，
-并把 Mod 文件改好。
+TrueType / OpenType 字体。支持按 TF2 的四类原始字体（`TF2`、`TF2 Build`、`TF2 Secondary`、
+`TF2 Professor`）分别指定不同字体文件，也支持整体替换。支持 Windows 与 Linux，附带两个脚本：
+自动读取字体文件里的**字体家族名**，并把 Mod 文件改好。
 
 > 只改客户端界面（HUD、聊天、菜单、击杀提示等），不改游戏逻辑，不进入 `sv_pure` 判定之外的玩法数据，
 > 性质与普通自定义 HUD 相同。
@@ -17,6 +18,9 @@ TrueType / OpenType 字体。支持 Windows 与 Linux，附带两个脚本：自
 3. 启动游戏。自定义字体文件在启动时注册，改字体后建议重启；`hud_reloadscheme` 只能重载 HUD 布局。
 
 不想换字体也可以直接用自带的 DejaVu Sans，只做第 2 步即可。
+
+如果想让不同种类的文字用不同字体（例如 `TF2 Build` / `TF2 Secondary` 用 `1.ttf`，
+`TF2` / `TF2 Professor` 用 `2.ttf`），见 [5.5 按角色分别使用不同字体](#55-按角色分别使用不同字体)。
 
 ---
 
@@ -42,6 +46,9 @@ TrueType / OpenType 字体。支持 Windows 与 Linux，附带两个脚本：自
 
 - 替换 `resource/clientscheme.res` 里全部**文本字体**（HUD 主字体、计分板、目标 ID、击杀提示、
   任务面板、商店、回放、主菜单等，共 155 个字体族、229 个字形集）。
+- **按 TF2 原始字体分组换字体**：`TF2`、`TF2 Build`、`TF2 Secondary`、`TF2 Professor` 四类
+  可以各用不同文件；正文（Verdana/Arial/Tahoma…）、HUD 数字（`Team Fortress`）、自定义 HUD
+  专属字体也各自独立。任意角色都可以选择保留原版字体。
 - 额外替换 `resource/chatscheme.res`，聊天框与聊天输入框也使用新字体。
 - 使用 `#base` 只覆盖字体名：颜色、边框、字号、粗细、阴影等全部沿用原方案（包括自定义 HUD 的方案）。
 - 自动跳过图标/符号字体（`Marlett`、`Icons`、手柄按键位图字体），避免滚动条箭头、兵种图标
@@ -49,8 +56,10 @@ TrueType / OpenType 字体。支持 Windows 与 Linux，附带两个脚本：自
 - 附带的 `DejaVu Sans` 为默认字体，开箱即用；可直接换成任意字体。
 - Windows（`set-font.cmd` + PowerShell）与 Linux（`set-font.sh`）脚本：
   - 读取 TTF/OTF 的真实字体家族名；
-  - 复制字体到 Mod 目录；
-  - 用模板重新生成 `clientscheme.res` / `chatscheme.res`；
+  - 复制字体到 Mod 目录（多字体时按角色命名，如 `customfont_tf2.ttf`）；
+  - 用模板重新生成 `clientscheme.res` / `chatscheme.res`，按每个字形集的原始字体角色
+    （`CUSTOMFONT:ORIG`）替换对应的字体；
+  - 可选：每个角色单独指定字体，或让某个角色保留原版字体；
   - 可选：把自定义 HUD 的方案作为基础合并进来；
   - 可选：关闭全 Unicode 范围（让缺少 CJK 字形的字体回退到系统字体）。
 
@@ -149,7 +158,8 @@ customfont/
 │               ├── clientscheme_base.res  原版 / HUD 完整方案（基础）
 │               ├── chatscheme.res         聊天字体覆盖文件（自动生成）
 │               ├── chatscheme_base.res    原版 / HUD 聊天方案（基础）
-│               └── customfont.ttf         当前使用的字体（默认 DejaVu Sans）
+│               ├── customfont.ttf         当前字体（单字体时）
+│               └── customfont_<角色>.ttf  多字体时每个角色/家族一个文件
 └── tools/
     ├── set-font.cmd                Windows 入口（双击或命令行）
     ├── set-font.ps1                Windows 实际逻辑（PowerShell 5.1+）
@@ -165,8 +175,8 @@ customfont/
     │   └── LICENSE-DejaVu.txt
     └── dev/
         ├── build-templates.py      从 base 重新生成模板（维护者用）
-        ├── hud_scheme.py           递归复制 HUD scheme / 注入 HUD 字体
-        └── verify.py               校验 #base 合并结果（维护者用）
+        ├── hud_scheme.py           复制 HUD scheme、按角色重映射字体、注入 HUD 字体
+        └── verify.py               校验 #base 合并与角色映射结果（维护者用）
 ```
 
 > `!000_` 前缀不是装饰。`gameinfo.txt` 把 `tf/custom/*` 里的每个子文件夹按**名称升序**加入搜索路径，
@@ -251,7 +261,10 @@ tools\set-font.cmd "C:\Users\你\Downloads\Inter.ttf" -Hud "C:\Program Files (x8
 
 | 参数 | 说明 |
 | --- | --- |
-| `-Name "名称"` | 手动指定字体家族名（自动识别失败、或需要 ASCII 别名时用） |
+| `-Font 角色=文件` | 给某个角色单独指定字体；多个角色写在一个引号参数里，例如 `-Font "tf2=2.ttf,build=1.ttf"`（PowerShell 不允许同名参数重复）。`-Font all=文件` 等于位置参数。角色见 [5.5](#55-按角色分别使用不同字体) |
+| `-Keep 角色[,角色]` | 让该角色保留原版字体，例如 `-Keep numbers` 或 `-Keep "numbers,hud"` |
+| `-ListFonts` | 列出可指定的角色与对应原版字体 |
+| `-Name "名称"` | 手动指定字体家族名（自动识别失败、或需要 ASCII 别名时用）；`-Name "角色=名称"` 只覆盖该角色，多个角色写在一个引号参数里 |
 | `-Hud <路径>` | 递归复制 HUD 的 scheme 依赖树，并把 HUD 同名 scheme 改名避让；保留颜色、布局和专属文本字体 |
 | `-Restore` | 撤销 `-Hud`，把 HUD 的 `clientscheme.res` / `chatscheme.res` 改回去 |
 | `-NoRange` | 不把字体强制用于全 Unicode 范围（纯拉丁字体想让中日韩文字回退系统字体时用） |
@@ -262,6 +275,12 @@ tools\set-font.cmd "C:\Users\你\Downloads\Inter.ttf" -Hud "C:\Program Files (x8
 
 ```bat
 tools\set-font.cmd "C:\Windows\Fonts\comic.ttf" -Name "Comic Sans MS"
+
+:: 所有角色使用同一个字体，但保留 HUD 数字（Team Fortress）
+tools\set-font.cmd "C:\Fonts\Inter.ttf" -Keep numbers
+
+:: 按角色分别指定（四类原始字体各用不同文件；多个 -Font 项写在一个引号参数里）
+tools\set-font.cmd -Font "tf2=C:\Fonts\2.ttf,build=C:\Fonts\1.ttf,secondary=C:\Fonts\1.ttf,professor=C:\Fonts\2.ttf"
 ```
 
 > 注意：`C:\Windows\Fonts` 里的文件可能受系统保护，建议先把字体复制到桌面/下载目录再运行。
@@ -296,25 +315,43 @@ chmod +x tools/set-font.sh
 
 | 参数 | 说明 |
 | --- | --- |
-| `--name "名称"` | 手动指定字体家族名 |
+| `--font 角色=文件` | 给某个角色单独指定字体，可重复；角色见 [5.5](#55-按角色分别使用不同字体)。`--font all=文件` 等于位置参数 |
+| `--keep 角色[,角色]` | 让该角色保留原版字体，例如 `--keep numbers` 或 `--keep numbers,hud` |
+| `--list-fonts` | 列出可指定的角色与对应原版字体 |
+| `--name "名称"` | 手动指定字体家族名；`--name 角色=名称` 只覆盖该角色 |
 | `--hud <路径>` | 递归复制 HUD 的 scheme 依赖树，并把 HUD 同名 scheme 改名避让；保留颜色、布局和专属文本字体 |
 | `--restore` | 撤销 `--hud`，把 HUD 的 `clientscheme.res` / `chatscheme.res` 改回去 |
 | `--no-range` | 关闭全 Unicode 范围 |
 | `--target <路径>` | 直接修改已安装的 Mod 目录 |
 | `--help` | 显示帮助 |
 
+示例：
+
+```bash
+# 所有角色使用同一个字体，但保留 HUD 数字（Team Fortress）
+./tools/set-font.sh ~/Downloads/Inter.ttf --keep numbers
+
+# 按角色分别指定
+./tools/set-font.sh --font tf2=~/Fonts/2.ttf --font build=~/Fonts/1.ttf \
+    --font secondary=~/Fonts/1.ttf --font professor=~/Fonts/2.ttf
+```
+
 ### 5.3 脚本具体做了什么
 
 1. 读取字体的**家族名**：
    - Windows：GDI+ 的 `PrivateFontCollection`（与游戏使用 GDI 的命名一致）；
    - Linux：`fc-scan` / `fc-query`，没有 fontconfig 时用 Python `fontTools`，再不行就用文件名。
-2. 把字体复制为 `tf/custom/!000_customfont/resource/customfont.<扩展名>`。
+2. 把字体复制为 `tf/custom/!000_customfont/resource/customfont.<扩展名>`；如果角色使用了
+   多个不同字体文件，则按第一个使用它的角色命名，例如 `customfont_tf2.ttf`、
+   `customfont_build.ttf`。
 3. 把 `tools/base/` 的方案复制为 `*_base.res`；如果指定了 `--hud`，则递归复制 HUD 的
    整棵 `#base` 依赖树，并把 HUD 的同名 scheme 改名为 `*_customfont_original.res` 避让。
-4. 用 `tools/template/*.res` 生成正式的 `clientscheme.res` / `chatscheme.res`，把所有
-   `__CUSTOM_FONT_NAME__` / `__CUSTOM_FONT_FILE__` 占位符替换成实际值；带 HUD 时再把
-   HUD 专属文本字体加进去。
-5. 打印结果、安装提示和加载顺序警告。
+4. 用 `tools/template/*.res` 生成正式的 `clientscheme.res` / `chatscheme.res`：
+   先在 `CustomFontFiles` 里为每个唯一字体家族注册一条（键从 `1000` 递增），
+   再按每个字形集的原始字体（模板里的 `// CUSTOMFONT:ORIG=...`）查角色表，
+   写成该角色选定的字体名。保留角色继续使用原版家族名。
+5. 带 HUD 时把 HUD 专属文本字体也加入覆盖（图标/符号字体跳过）。
+6. 打印角色映射、安装提示和加载顺序警告。
 
 脚本不会自动把文件复制进 Steam 目录（除非你用 `--target` 指向已安装目录），这样你可以先改好再安装，
 也可以反复试用不同字体。
@@ -330,6 +367,65 @@ chmod +x tools/set-font.sh
 :: Windows
 tools\set-font.cmd tools\fonts\DejaVuSans.ttf
 ```
+
+### 5.5 按角色分别使用不同字体
+
+TF2 用四种原始字体绘制不同位置的文字。脚本把它们以及其余正文/数字字体分成 7 个**角色**，
+每个角色可以指向不同字体文件，也可以保留原版字体：
+
+| 角色 | 对应原始家族 | 主要影响 |
+| --- | --- | --- |
+| `tf2` | `TF2` | 主菜单标题、HUD 大字、部分计分板/回放标题 |
+| `build` | `TF2 Build` | 粗体 HUD、物品名、商店、匹配界面 |
+| `secondary` | `TF2 Secondary` | 小号 HUD、计分板、按钮/提示文字 |
+| `professor` | `TF2 Professor` | 黑板、任务/战役文本 |
+| `body` | `Verdana`、`Arial`、`Tahoma`、`Trebuchet MS`、`OCR A Extended` 等 | 默认正文、聊天、提示、控制台覆盖层 |
+| `numbers` | `Team Fortress` | HUD 数字、弹药/伤害数字 |
+| `hud` | 只有自定义 HUD 才定义的家族（如 `G_FontSmall`） | 配合 `--hud` 时生效 |
+
+`tf2build`、`tf2secondary`、`tf2professor` 是 `build`、`secondary`、`professor` 的别名。
+
+**例：`TF2 Build` + `TF2 Secondary` 用 `1.ttf`，`TF2` + `TF2 Professor` 用 `2.ttf`**
+
+```bat
+:: Windows（多个 -Font 项写在一个引号参数里）
+tools\set-font.cmd -Font "build=C:\Fonts\1.ttf,secondary=C:\Fonts\1.ttf,tf2=C:\Fonts\2.ttf,professor=C:\Fonts\2.ttf"
+```
+
+```bash
+# Linux
+./tools/set-font.sh --font build=~/Fonts/1.ttf --font secondary=~/Fonts/1.ttf \
+    --font tf2=~/Fonts/2.ttf --font professor=~/Fonts/2.ttf
+```
+
+**例：整体用一个字体，但保留 HUD 数字**
+
+```bash
+./tools/set-font.sh ~/Downloads/Inter.ttf --keep numbers
+```
+
+```bat
+tools\set-font.cmd C:\Fonts\Inter.ttf -Keep numbers
+```
+
+**例：默认字体 + 少量角色特殊处理**
+
+```bash
+./tools/set-font.sh ~/Downloads/Inter.ttf \
+    --font tf2=~/Fonts/2.ttf --font professor=~/Fonts/2.ttf --keep numbers
+```
+
+规则：
+
+- 显式写了 `--font` / `-Font` 的角色优先；没有单独指定、也没有 `--keep` 的角色使用
+  位置参数（默认字体）；再没有就保留原版。
+- `--keep` / `-Keep` 的角色保持原版家族名（例如伤害数字仍是 `Team Fortress`）。
+- 同一个字体文件可以用于多个角色，脚本只会复制一份、在 `CustomFontFiles` 里注册一次
+  （引擎按家族名索引，同一家族名不能注册两次）。
+- 两个角色使用不同的字体**文件**但家族名相同时，脚本会警告并使用第一个文件。
+- `--list-fonts` / `-ListFonts` 可以随时查看角色列表；不需要 Python 也能使用，
+  但**按角色分配不同字体或保留角色**需要 Python 3（脚本内部的 `tools/dev/hud_scheme.py`
+  负责按实际基础方案重映射字体名）。
 
 ---
 
@@ -366,6 +462,16 @@ tools\set-font.cmd tools\fonts\DejaVuSans.ttf
 
    如果字体是 `.otf`，可以命名为 `customfont.otf`（此时第 4 步要改路径）。
 
+   如果用多个字体，建议按角色命名，并为每个家族在 `CustomFontFiles` 里各注册一条：
+
+   ```res
+   CustomFontFiles
+   {
+       "1000" { "font" "resource/customfont_build.ttf" "name" "Font One" ... }
+       "1001" { "font" "resource/customfont_tf2.ttf"   "name" "Font Two" ... }
+   }
+   ```
+
 3. **替换字体名**
 
    用文本编辑器打开：
@@ -383,7 +489,18 @@ tools\set-font.cmd tools\fonts\DejaVuSans.ttf
    ```
 
    用「全部替换」把所有的 `"DejaVu Sans"` 换成你的新家族名（注意保留引号）。
-   两个文件都要改。
+   两个文件都要改。这只适用于“所有角色同一个字体”。
+
+   如果想让不同角色用不同字体，不要全部替换，而是按每行末尾的原始字体注释逐行修改：
+
+   ```res
+   "1" { "name" "Font One" }   // CUSTOMFONT:ORIG=TF2 Build
+   "1" { "name" "Font Two" }   // CUSTOMFONT:ORIG=TF2
+   "1" { "name" "Verdana" }    // CUSTOMFONT:ORIG=Verdana   ← 保留原版
+   ```
+
+   `CUSTOMFONT:ORIG` 记录该字形集原本使用的家族；没有注释的行会直接继承基础方案。
+   手动改完后，`"name"` 必须存在于 `CustomFontFiles` 的某个 `"name"` 注册项中。
 
 4. **扩展名不是 .ttf 时**
 
@@ -644,8 +761,15 @@ Linux 下 FreeType 直接使用该文件。想要粗体效果，请使用同时�
 
 ### Q10. 伤害数字（HudNumbers）也变了吗？
 
-是的，`HudNumbers` 使用 `Team Fortress` 家族，本 Mod 会替换它。若你希望保留原版伤害数字，在
-`clientscheme.res` 里把 `"HudNumbers"` 整块删掉（或从模板删除后重新生成）。
+默认会。`HudNumbers` 等 HUD 数字使用 `Team Fortress` 家族，对应 `numbers` 角色。
+若想保留原版数字/弹药外观，加 `--keep numbers`（Windows：`-Keep numbers`）：
+
+```bash
+./tools/set-font.sh 你的字体.ttf --keep numbers
+```
+
+这时只有 `Team Fortress` 的字形集保留原样，其余角色仍使用你的字体。
+只删 `clientscheme.res` 里的 `"HudNumbers"` 块也行，但下次运行脚本会被重新生成覆盖。
 
 ### Q11. Linux 上脚本提示找不到字体家族名？
 
@@ -709,6 +833,10 @@ python3 -m pip install fonttools
 | `resource/chatscheme.res` | 2（`Default`、`ChatFont`） | 10 |
 
 跳过的字体：`Marlett`、`MarlettSmall`、`Icons`、`GameUIButtons*`。
+
+按角色拆分字体时，覆盖的字体族/字形集数量不变，只是每个 `"name"` 来自该角色选定的字体；
+保留的角色仍写原版家族名。`CustomFontFiles` 会为每个唯一字体家族注册一条（键 `1000`、`1001`…），
+所以不同角色可以真的使用不同文件。
 
 ### 12.2 `#base` 的合并行为
 
@@ -777,7 +905,8 @@ TF2 的字体管理器会在以下情况把非拉丁字符交给备用字体：
 5. 重新运行 `set-font.sh` / `set-font.cmd` 生成 Mod 文件。
 
 > `tools/dev/build-templates.py` 会自动跳过图标/位图字体，并保留所有字体子块。
-> `tools/dev/verify.py` 会模拟 `#base` 合并，检查每个字形集是否都被正确覆盖、颜色/边框是否保留。
+> `tools/dev/verify.py` 会模拟 `#base` 合并，检查每个字形集是否都被正确覆盖、角色映射是否正确、
+> 颜色/边框是否保留。
 
 ### 12.6 文件格式说明
 

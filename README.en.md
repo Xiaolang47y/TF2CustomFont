@@ -1,8 +1,10 @@
 # TF2 Custom Font Mod (`!000_customfont`)
 
 A client-side Team Fortress 2 mod that replaces the in-game fonts with any TrueType/OpenType
-font you like. Works on Windows and Linux. Two helper scripts read the **font family name** from
-the font file and patch the mod for you.
+font you like. You can use one font everywhere, or assign different fonts to the four original
+TF2 font groups (`TF2`, `TF2 Build`, `TF2 Secondary`, `TF2 Professor`) and to body text, HUD
+numbers and custom-HUD fonts. Works on Windows and Linux. Two helper scripts read the **font
+family name** from the font file and patch the mod for you.
 
 > Client-side UI only (HUD, chat, menus, kill feed). Same category as a custom HUD. No gameplay
 > changes, no injection.
@@ -16,6 +18,9 @@ guide covering the same workflow.
 
 - Overrides every text font in `resource/clientscheme.res` (155 families / 229 glyph sets):
   HUD, scoreboard, target ID, kill feed, contracts, store, replay, main menu, …
+- **Per-role fonts:** `TF2`, `TF2 Build`, `TF2 Secondary`, `TF2 Professor`, body text
+  (Verdana/Arial/Tahoma/…), HUD numbers (`Team Fortress`) and custom-HUD-only families can each
+  use a different font file, or keep the original family.
 - Overrides `resource/chatscheme.res` (chat + chat input).
 - Uses `#base` and overrides **only** the `"name"` of each font, so colours, borders, sizes,
   weights and shadows are inherited from the vanilla scheme or from your custom HUD.
@@ -78,8 +83,8 @@ The script:
 HUD colours, borders, layout and HUD text fonts are preserved.
 
 On Windows the recursive copy is native PowerShell; automatic injection of HUD-only text families
-requires Python 3. Without Python, the vanilla families are still replaced, but HUD-only names such
-as `G_FontSmall` keep their original font.
+and per-role mapping require Python 3. Without Python, a single font for all roles is still applied
+to the vanilla families, but HUD-only names such as `G_FontSmall` keep their original font.
 
 Undo it with:
 
@@ -107,6 +112,9 @@ tools\set-font.cmd "C:\path\to\font.ttf" -Hud "C:\...\tf\custom\myhud"
 tools\set-font.cmd "C:\path\to\font.ttf" -Name "Comic Sans MS"
 tools\set-font.cmd "C:\path\to\font.ttf" -NoRange
 tools\set-font.cmd "C:\path\to\font.ttf" -Target "C:\...\tf\custom\!000_customfont"
+tools\set-font.cmd "C:\path\to\font.ttf" -Keep numbers
+tools\set-font.cmd -Font "build=1.ttf,secondary=1.ttf,tf2=2.ttf,professor=2.ttf"
+tools\set-font.cmd -ListFonts
 ```
 
 ### Linux
@@ -118,16 +126,61 @@ chmod +x tools/set-font.sh          # zip extraction may drop the executable bit
 ./tools/set-font.sh ~/Downloads/Inter.ttf --name "Comic Sans MS"
 ./tools/set-font.sh ~/Downloads/Inter.ttf --no-range
 ./tools/set-font.sh ~/Downloads/Inter.ttf --target ~/.steam/steam/steamapps/common/"Team Fortress 2"/tf/custom/!000_customfont
+./tools/set-font.sh ~/Downloads/Inter.ttf --keep numbers
+./tools/set-font.sh --font build=1.ttf --font secondary=1.ttf --font tf2=2.ttf --font professor=2.ttf
+./tools/set-font.sh --list-fonts
 ```
+
+### Per-role fonts
+
+TF2 draws different text with four original fonts. The scripts expose seven roles:
+
+| Role | Original family | Mainly affects |
+| --- | --- | --- |
+| `tf2` | `TF2` | main-menu titles, large HUD text, some scoreboard/replay headers |
+| `build` | `TF2 Build` | bold HUD, item names, store, matchmaking UI |
+| `secondary` | `TF2 Secondary` | small HUD text, scoreboard, buttons and hints |
+| `professor` | `TF2 Professor` | chalkboard/contract text |
+| `body` | `Verdana`, `Arial`, `Tahoma`, `Trebuchet MS`, `OCR A Extended`, … | default text, chat, hints, debug overlay |
+| `numbers` | `Team Fortress` | HUD numbers, ammo and damage numbers |
+| `hud` | families defined only by a custom HUD (e.g. `G_FontSmall`) | used with `--hud` |
+
+`tf2build`, `tf2secondary` and `tf2professor` are aliases for `build`, `secondary` and
+`professor`.
+
+Example — `TF2 Build` + `TF2 Secondary` use `1.ttf`, `TF2` + `TF2 Professor` use `2.ttf`:
+
+```bat
+tools\set-font.cmd -Font "build=C:\Fonts\1.ttf,secondary=C:\Fonts\1.ttf,tf2=C:\Fonts\2.ttf,professor=C:\Fonts\2.ttf"
+```
+
+```bash
+./tools/set-font.sh --font build=~/Fonts/1.ttf --font secondary=~/Fonts/1.ttf \
+    --font tf2=~/Fonts/2.ttf --font professor=~/Fonts/2.ttf
+```
+
+Rules:
+
+- An explicit `--font` / `-Font` role wins; other roles use the positional/default font;
+  roles with neither keep the original family. On Windows, put several `-Font` entries in
+  one quoted argument (PowerShell does not allow the same parameter twice).
+- `--keep` / `-Keep` keeps the original family for the listed roles (e.g. `--keep numbers`).
+- Each unique family is registered once in `CustomFontFiles` (keys `1000`, `1001`, …), so different
+  roles can really use different files. The same file used by several roles is copied only once.
+- Different font files with the same family name trigger a warning; the first file wins.
+- Per-role assignment or keeping a role requires Python 3 (used by `tools/dev/hud_scheme.py`).
+  A single font for all roles still works without Python.
 
 What the script does:
 
 1. Reads the family name (`GDI+ PrivateFontCollection` with the en-US name on Windows,
    `fc-scan`/`fc-query`/`fontTools` on Linux).
-2. Copies the font to `resource/customfont.<ext>`.
+2. Copies the font(s) to `resource/customfont.<ext>`, or `resource/customfont_<role>.<ext>` when
+   several fonts are used.
 3. Copies the vanilla scheme, or the HUD's full `#base` tree with `--hud`.
-4. Regenerates `clientscheme.res` / `chatscheme.res` from `tools/template/*.res`.
-5. Prints the result and a load-order warning.
+4. Regenerates `clientscheme.res` / `chatscheme.res` from `tools/template/*.res`, rewriting every
+   glyph-set according to its original family (`// CUSTOMFONT:ORIG=...`) and the role map.
+5. Prints the role mapping, the result and a load-order warning.
 
 The script patches the package by default; add `--target` to patch an already installed copy.
 After changing the font, restart TF2 (custom font files are registered at startup;
@@ -151,8 +204,12 @@ After changing the font, restart TF2 (custom font files are registered at startu
    ```
 
 2. Copy the font to `tf/custom/!000_customfont/resource/customfont.ttf` (keep the real extension).
+   For several fonts, use one file per role (e.g. `customfont_tf2.ttf`) and register each family
+   in `CustomFontFiles` with its own key (`"1000"`, `"1001"`, …).
 3. In **both** `resource/clientscheme.res` and `resource/chatscheme.res`, replace every occurrence
-   of the current family name (see the `CustomFontFiles` block, key `"1000"`) with the new one.
+   of the current family name (see the `CustomFontFiles` block) with the new one. For per-role
+   fonts, edit each glyph-set individually using its `// CUSTOMFONT:ORIG=<family>` comment;
+   glyph-sets left on their original family keep that name.
 4. If the file is `.otf`, change `"font" "resource/customfont.ttf"` to the real path.
 5. Save as UTF-8 **without BOM** (or Windows ANSI) and restart TF2.
 
@@ -203,6 +260,7 @@ For a HUD, also copy every `#base` file and rename the HUD's `clientscheme.res` 
 | Nothing changed with a HUD | The HUD's scheme is shadowing the mod. Run `--hud` (it renames the HUD scheme), or rename `clientscheme.res` to `clientscheme_OLD.res` manually |
 | Boxes / blank text | Font lacks the glyphs, or the family name is wrong; use a wider font or `-Name` |
 | Chinese becomes Tahoma | `range` blocks are missing (e.g. `--no-range`); regenerate without `--no-range` |
+| Want the original HUD/damage numbers | Add `--keep numbers` (Windows: `-Keep numbers`); `numbers` covers the `Team Fortress` family |
 | Icons / scrollbar arrows missing | Do not replace `Marlett`, `Icons`, `tf2icons`, crosshair fonts; re-run the script to restore |
 | HUD colours reverted | Re-run with `--hud` / `-Hud` |
 | HUD looks broken after `--hud` | Restore, update the HUD, re-run `--hud`; check the load-order warning |

@@ -6,9 +6,16 @@
 //  (Windows) to regenerate this file for another font - no manual
 //  editing needed. Marker: TF2_CUSTOM_FONT_OVERRIDE
 //
-//  Font family : DejaVu Sans
-//  Font file   : resource/customfont.ttf
+//  Font mapping (see --list-fonts in the scripts):
+//  tf2         -> DejaVu Sans (custom)
+//  build       -> DejaVu Sans (custom)
+//  secondary   -> DejaVu Sans (custom)
+//  professor   -> DejaVu Sans (custom)
+//  body        -> DejaVu Sans (custom)
+//  numbers     -> DejaVu Sans (custom)
+//  hud         -> DejaVu Sans (custom)
 //
+//  Every glyph-set carries // CUSTOMFONT:ORIG=<original family>.
 //  Everything except the font names is inherited from
 //  "chatscheme_base.res" (vanilla scheme or a custom HUD scheme).
 // ==========================================================================
@@ -17,6 +24,8 @@
 
 Scheme
 {
+	// CUSTOMFONT:CUSTOM-FILE-BEGIN
+	// Registered only when a role uses a custom font file.
 	CustomFontFiles
 	{
 		"1000"
@@ -60,28 +69,30 @@ Scheme
 			// CUSTOMFONT:RANGE-END
 		}
 	}
+	// CUSTOMFONT:CUSTOM-FILE-END
 
 	Fonts
 	{
-		// Every glyph-set gets the same replacement family.  Only the name
-		// is written, so tall/weight/antialias/... still come from the base.
+		// Each glyph-set is replaced according to its original family
+		// (CUSTOMFONT:ORIG).  Only the name is written, so tall/weight/
+		// antialias/... still come from the base.
 
 		"Default"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 
 		"ChatFont"
 		{
-			"1"	{ "name" "DejaVu Sans" }
-			"2"	{ "name" "DejaVu Sans" }
-			"3"	{ "name" "DejaVu Sans" }
-			"4"	{ "name" "DejaVu Sans" }
-			"5"	{ "name" "DejaVu Sans" }
+			"1"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"2"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"3"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"4"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
+			"5"	{ "name" "DejaVu Sans" }	// CUSTOMFONT:ORIG=Verdana
 		}
 		// CUSTOMFONT:HUD-FONTS
 	}
